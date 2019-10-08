@@ -1,7 +1,9 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const app = express()
+import dotenv = require("dotenv")
 const { scopePerRequest, loadControllers } = require('awilix-express')
+dotenv.config()
 
 import * as repositories from "./data-layer/repositories"
 import * as managers from "./business-layer/managers"

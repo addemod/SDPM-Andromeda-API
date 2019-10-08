@@ -1,12 +1,12 @@
 import {Sequelize} from 'sequelize-typescript'
 
 const sequelize = new Sequelize({
-    host: "remotemysql.com",
+    host: process.env.DB_HOST,
     //database: 'andromeda_db',
-    database: 'DHns7QHqJj',
+    database: process.env.DB_NAME,
     dialect: 'mysql',
-    username: 'DHns7QHqJj',
-    password: 'KEcbcS4SUq',
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
     port: 3306,
     //storage: "database.sqlite",
     models: [ __dirname + '/data-layer/models/*.model.js' ],
