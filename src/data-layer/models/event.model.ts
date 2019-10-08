@@ -55,7 +55,8 @@ export default class Event extends Model<Event> {
                     if(!user)
                         return
                 }
-                console.log("här", user);
+                instance.userId = user.id
+                await instance.save()
                 
                 
                 // Invert the user's clockedIn value
