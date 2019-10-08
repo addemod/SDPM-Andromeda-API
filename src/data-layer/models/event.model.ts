@@ -11,7 +11,7 @@ export default class Event extends Model<Event> {
     @Column(DataType.INTEGER)
     id: number
 
-    @Column(DataType.STRING)
+    @Column(DataType.INTEGER)
     @ForeignKey(() => User)
     userId: number
 
