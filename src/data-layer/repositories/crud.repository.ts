@@ -8,8 +8,13 @@ export class CRUDRepository {
         this.model = model
     }
 
-    async getAll(query: any = null) {
-        return await sequelize.model(this.model).findAll(query ? { where: query } : {})
+    async getAll(query: any = null, include: any = null) {
+        var options: any = {}
+        if(query)
+            options.query = { where: query }
+        if(include)
+            options.include = { include: include }
+        return await sequelize.model(this.model).findAll(options)
     }
 
     async getByPk(primaryKey: any) {

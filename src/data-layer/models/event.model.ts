@@ -1,7 +1,8 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, AfterCreate } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, AfterCreate, BeforeFind, HasOne } from 'sequelize-typescript';
 import { EventKey } from './eventKey.enum';
 import User from './user.model';
 import * as request from 'request-promise'
+import ClockInOutEvent from './clockInOutEvent.model';
  
 @Table({ tableName: "events", timestamps: false })
 export default class Event extends Model<Event> {
@@ -24,6 +25,9 @@ export default class Event extends Model<Event> {
 
     @Column({ allowNull: true })
     data: string
+
+    @HasOne(() => ClockInOutEvent)
+    clockInOutEvent: ClockInOutEvent
 
     @AfterCreate
     static async updateUser(instance: Event) {
@@ -57,7 +61,13 @@ export default class Event extends Model<Event> {
                 }
                 instance.userId = user.id
                 await instance.save()
-                
+
+
+                // Async save clock in/out event
+                new ClockInOutEvent({
+                    eventId: instance.id,
+                    clockedIn: !user.clockedIn
+                }).save()
                 
                 // Invert the user's clockedIn value
                 return await User.update({

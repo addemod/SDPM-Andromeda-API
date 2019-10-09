@@ -1,4 +1,5 @@
 import {Sequelize} from 'sequelize-typescript'
+console.log(process.env.DB_HOST);
 
 const sequelize = new Sequelize({
     host: process.env.DB_HOST,

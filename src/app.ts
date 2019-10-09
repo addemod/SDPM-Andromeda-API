@@ -20,6 +20,7 @@ container.register({
     // Repositories
     crudRepository: asFunction(makeCrudRepo),
     userRepository: asClass(repositories.UserRepository),
+    eventRepository: asClass(repositories.EventRepository),
     // Managers
     userManager: asClass(managers.UserManager).scoped(),
     eventManager: asClass(managers.EventManager).scoped(),
