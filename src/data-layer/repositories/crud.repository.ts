@@ -11,9 +11,9 @@ export class CRUDRepository {
     async getAll(query: any = null, include: any = null) {
         var options: any = {}
         if(query)
-            options.query = { where: query }
+            options.where = query
         if(include)
-            options.include = { include: include }
+            options.include = include
         return await sequelize.model(this.model).findAll(options)
     }
 
