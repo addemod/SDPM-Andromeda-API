@@ -22,6 +22,22 @@ export default class EventRoutes {
         }
     }
 
+    @route("/latest")
+    @GET()
+    async getLatestEvent(req, res) {
+        try {
+            if(!req.query.eventKey || !req.query.userId)
+                return res.json(null)
+            const events = await this.eventManager.getEvents(req.query)
+            events.sort((a, b) => {
+                return a.get("dateCreated") > b.get("dateCreated") ? -1 : 1
+            })
+            res.json(events[0])
+        }catch(error) {
+            res.status(500).json(error)
+        }
+    }
+
     @route("/:id")
     @GET()
     async getEvent(req, res) {
