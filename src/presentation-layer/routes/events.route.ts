@@ -29,9 +29,9 @@ export default class EventRoutes {
             if(!req.query.eventKey || !req.query.userId)
                 return res.json(null)
             const events = await this.eventManager.getEvents(req.query)
-            events.sort((a, b) => {
+            /*events.sort((a, b) => {
                 return a.get("dateCreated") > b.get("dateCreated") ? -1 : 1
-            })
+            })*/
             res.json(events[0])
         }catch(error) {
             res.status(500).json(error)

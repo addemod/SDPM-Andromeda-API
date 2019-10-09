@@ -14,7 +14,7 @@ export class CRUDRepository {
             options.where = query
         if(include)
             options.include = include
-        options.order = '"dateCreated" DESC'
+        options.order = [["dateCreated", "DESC"]]
         return await sequelize.model(this.model).findAll(options)
     }
 
